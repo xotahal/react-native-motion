@@ -1,59 +1,86 @@
 import React, { PureComponent } from 'react';
 import { Animated, InteractionManager } from 'react-native';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  opacityMin: PropTypes.number,
+  scaleMin: PropTypes.number,
+  duration: PropTypes.number,
+  animateOnDidMount: PropTypes.bool,
+};
+const defaultProps = {
+  opacityMin: 0,
+  scaleMin: 0.8,
+  duration: 500,
+  animateOnDidMount: true,
+};
 
 class ScaleAndOpacity extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { animateOnDidMount } = props;
+    const { animateOnDidMount, opacityMin, scaleMin } = props;
 
     this.state = {
-      opacityValue: new Animated.Value(animateOnDidMount ? 0 : 1),
-      scaleValue: new Animated.Value(animateOnDidMount ? 0.8 : 1),
+      opacityValue: new Animated.Value(animateOnDidMount ? opacityMin : 1),
+      scaleValue: new Animated.Value(animateOnDidMount ? scaleMin : 1),
     };
   }
   componentDidMount() {
     if (this.props.animateOnDidMount) {
       InteractionManager.runAfterInteractions().then(() => {
-        this.showAnimation();
+        this.show(this.props);
       });
     }
   }
   componentWillReceiveProps(nextProps) {
     if (!this.props.isHidden && nextProps.isHidden) {
-      this.hideAnimation();
+      this.hide(nextProps);
     }
     if (this.props.isHidden && !nextProps.isHidden) {
-      this.showAnimation();
+      this.show(nextProps);
     }
   }
-  hideAnimation = () => {
+  hide = props => {
+    const { scaleMin, opacityMin, duration, onHideComplete } = props;
+
     Animated.parallel([
       Animated.timing(this.state.scaleValue, {
-        toValue: 0.8,
+        toValue: scaleMin,
         useNativeDriver: true,
-        duration: 250,
+        duration,
       }),
       Animated.timing(this.state.opacityValue, {
-        toValue: 0,
+        toValue: opacityMin,
         useNativeDriver: true,
-        duration: 250,
+        duration,
       }),
-    ]).start();
+    ]).start(() => {
+      if (onHideComplete) {
+        onHideComplete(props);
+      }
+    });
   };
-  showAnimation = () => {
+  show = props => {
+    const { scaleValue, opacityValue } = this.state;
+    const { duration, onShowComplete } = props;
+
     Animated.parallel([
-      Animated.timing(this.state.scaleValue, {
+      Animated.timing(scaleValue, {
         toValue: 1,
         useNativeDriver: true,
-        duration: 250,
+        duration,
       }),
-      Animated.timing(this.state.opacityValue, {
+      Animated.timing(opacityValue, {
         toValue: 1,
         useNativeDriver: true,
-        duration: 250,
+        duration,
       }),
-    ]).start();
+    ]).start(() => {
+      if (onShowComplete) {
+        onShowComplete(props);
+      }
+    });
   };
   render() {
     const { opacityValue, scaleValue } = this.state;
@@ -72,5 +99,8 @@ class ScaleAndOpacity extends PureComponent {
     );
   }
 }
+
+ScaleAndOpacity.propTypes = propTypes;
+ScaleAndOpacity.defaultProps = defaultProps;
 
 export default ScaleAndOpacity;
