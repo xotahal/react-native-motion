@@ -12,6 +12,17 @@ $ yarn add react-native-motion
 We need to specify source and destination for shared element. This library then will move the shared element from source position to destination position.
 
 ```js
+class Main extends Component {
+  render() {
+    return (
+      <SharedElementRenderer>
+        <App />
+      </SharedElementRenderer>
+    );
+  }
+}
+```
+```js
 // List items page with source of SharedElement
 import { SharedElement } from 'react-native-motion';
 
