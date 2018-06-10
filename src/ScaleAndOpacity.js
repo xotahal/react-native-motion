@@ -3,6 +3,7 @@ import { Animated, InteractionManager } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
+  type: PropTypes.string,
   opacityMin: PropTypes.number,
   scaleMin: PropTypes.number,
   duration: PropTypes.number,
@@ -10,22 +11,22 @@ const propTypes = {
   delay: PropTypes.number,
 };
 const defaultProps = {
+  type: 'timing',
   opacityMin: 0,
   scaleMin: 0.8,
   duration: 500,
-  animateOnDidMount: true,
-  delay: 0,
+  animateOnDidMount: false,
 };
 
 class ScaleAndOpacity extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { animateOnDidMount, opacityMin, scaleMin } = props;
+    const { opacityMin, scaleMin, isHidden } = props;
 
     this.state = {
-      opacityValue: new Animated.Value(animateOnDidMount ? opacityMin : 1),
-      scaleValue: new Animated.Value(animateOnDidMount ? scaleMin : 1),
+      opacityValue: new Animated.Value(isHidden ? opacityMin : 1),
+      scaleValue: new Animated.Value(isHidden ? scaleMin : 1),
     };
   }
   componentDidMount() {
@@ -44,18 +45,17 @@ class ScaleAndOpacity extends PureComponent {
     }
   }
   hide = props => {
-    const { scaleMin, opacityMin, duration, onHideComplete } = props;
+    const { scaleValue, opacityValue } = this.state;
+    const { type, scaleMin, opacityMin, onHideComplete, ...rest } = props;
 
     Animated.parallel([
-      Animated.timing(this.state.scaleValue, {
+      Animated[type](scaleValue, {
         toValue: scaleMin,
-        useNativeDriver: true,
-        duration,
+        ...rest,
       }),
-      Animated.timing(this.state.opacityValue, {
+      Animated[type](opacityValue, {
         toValue: opacityMin,
-        useNativeDriver: true,
-        duration,
+        ...rest,
       }),
     ]).start(() => {
       if (onHideComplete) {
@@ -65,20 +65,16 @@ class ScaleAndOpacity extends PureComponent {
   };
   show = props => {
     const { scaleValue, opacityValue } = this.state;
-    const { duration, onShowComplete, delay } = props;
+    const { type, onShowComplete, ...rest } = props;
 
     Animated.parallel([
-      Animated.timing(scaleValue, {
+      Animated[type](scaleValue, {
         toValue: 1,
-        useNativeDriver: true,
-        duration,
-        delay
+        ...rest,
       }),
-      Animated.timing(opacityValue, {
+      Animated[type](opacityValue, {
         toValue: 1,
-        useNativeDriver: true,
-        duration,
-        delay
+        ...rest,
       }),
     ]).start(() => {
       if (onShowComplete) {
@@ -87,6 +83,7 @@ class ScaleAndOpacity extends PureComponent {
     });
   };
   render() {
+    const { style, children } = this.props;
     const { opacityValue, scaleValue } = this.state;
 
     const animatedStyle = {
@@ -99,7 +96,7 @@ class ScaleAndOpacity extends PureComponent {
     };
 
     return (
-      <Animated.View style={animatedStyle}>{this.props.children}</Animated.View>
+      <Animated.View style={[style, animatedStyle]}>{children}</Animated.View>
     );
   }
 }
