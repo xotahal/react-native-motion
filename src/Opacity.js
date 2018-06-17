@@ -21,26 +21,28 @@ class Opacity extends PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.value !== nextProps.value) {
-      this.move(nextProps.value);
+      this.move(nextProps);
     }
   }
-  move = toValue => {
-    const { style, type, ...rest } = this.props;
+  move = props => {
+    const { value, style, type, ...rest } = props;
 
     Animated[type](this.state.opacityValue, {
-      toValue,
+      toValue: value,
       ...rest,
     }).start();
   };
   render() {
-    const { style, children } = this.props;
+    const { style, children, ...rest } = this.props;
 
     const animatedStyle = {
       opacity: this.state.opacityValue,
     };
 
     return (
-      <Animated.View style={[style, animatedStyle]}>{children}</Animated.View>
+      <Animated.View style={[style, animatedStyle]} {...rest}>
+        {children}
+      </Animated.View>
     );
   }
 }
