@@ -65,12 +65,12 @@ class SharedElementRenderer extends PureComponent {
     const animations = [];
 
     if (source.position.pageY !== destination.position.pageY) {
-      const translateYValue = new Animated.Value(source.position.pageY);
+      const translateYValue = new Animated.Value(source.position.pageY - this.state.offsetY);
       this.setState({ translateYValue });
 
       animations.push(
         Animated.timing(translateYValue, {
-          toValue: destination.position.pageY,
+          toValue: destination.position.pageY - this.state.offsetY,
           useNativeDriver: true,
           ...animationConfig,
         })
@@ -97,6 +97,13 @@ class SharedElementRenderer extends PureComponent {
       Animated.parallel(animations).start(this.onMoveDidComplete);
     }, 0);
   };
+
+  onLayout(e) {
+    this.refs.mainContainer.measure((x, y, width, height, pageX, pageY) => {
+      this.setState({ offsetY: pageY });
+    })
+  }
+
   renderSharedElement() {
     const { config, translateYValue } = this.state;
     const { element } = config || {};
@@ -130,7 +137,9 @@ class SharedElementRenderer extends PureComponent {
   }
   render() {
     return (
-      <View style={styles.flexContainer}>
+      <View style={styles.flexContainer}
+        onLayout={e => this.onLayout(e)}
+        ref="mainContainer">
         {this.props.children}
         {this.renderSharedElement()}
       </View>
