@@ -37,7 +37,7 @@ class AnimatedNumber extends React.PureComponent {
 
     Animated[type](this.state.animatedValue, {
       toValue: value,
-      ...rest,
+      ...rest
     }).start();
   };
   render() {

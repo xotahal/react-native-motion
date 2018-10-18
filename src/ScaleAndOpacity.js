@@ -8,7 +8,9 @@ const propTypes = {
   scaleMin: PropTypes.number,
   duration: PropTypes.number,
   animateOnDidMount: PropTypes.bool,
+  isHidden: PropTypes.bool,
   delay: PropTypes.number,
+  useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
@@ -16,6 +18,9 @@ const defaultProps = {
   scaleMin: 0.8,
   duration: 500,
   animateOnDidMount: false,
+  isHidden: true,
+  delay: 0,
+  useNativeDriver: true,
 };
 
 class ScaleAndOpacity extends PureComponent {
@@ -51,11 +56,11 @@ class ScaleAndOpacity extends PureComponent {
     Animated.parallel([
       Animated[type](scaleValue, {
         toValue: scaleMin,
-        ...rest,
+        ...rest
       }),
       Animated[type](opacityValue, {
         toValue: opacityMin,
-        ...rest,
+        ...rest
       }),
     ]).start(() => {
       if (onHideComplete) {
@@ -70,11 +75,11 @@ class ScaleAndOpacity extends PureComponent {
     Animated.parallel([
       Animated[type](scaleValue, {
         toValue: 1,
-        ...rest,
+        ...rest
       }),
       Animated[type](opacityValue, {
         toValue: 1,
-        ...rest,
+        ...rest
       }),
     ]).start(() => {
       if (onShowComplete) {

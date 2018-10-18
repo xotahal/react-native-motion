@@ -29,7 +29,7 @@ class TranslateX extends PureComponent {
 
     Animated[type](this.state.translateXValue, {
       toValue,
-      ...rest,
+      ...rest
     }).start();
   };
   render() {

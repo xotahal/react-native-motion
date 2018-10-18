@@ -13,6 +13,8 @@ const defaultProps = {
   translateYMin: -4,
   duration: 500,
   startOnDidMount: false,
+  delay: 0,
+  useNativeDriver: true,
 };
 
 class TranslateYAndOpacity extends PureComponent {
@@ -45,20 +47,16 @@ class TranslateYAndOpacity extends PureComponent {
   }
   show(props) {
     const { opacityValue, translateYValue } = this.state;
-    const { duration, delay, onShowDidFinish } = props;
+    const { onShowDidFinish, ...rest } = props;
 
     Animated.parallel([
       Animated.timing(opacityValue, {
         toValue: 1,
-        useNativeDriver: true,
-        duration: 500,
-        delay,
+        ...rest
       }),
       Animated.timing(translateYValue, {
         toValue: 0,
-        useNativeDriver: true,
-        duration: 500,
-        delay,
+        ...rest
       }),
     ]).start(() => {
       if (onShowDidFinish) {
@@ -69,25 +67,20 @@ class TranslateYAndOpacity extends PureComponent {
   hide(props) {
     const { translateYValue, opacityValue } = this.state;
     const {
-      duration,
-      delay,
       opacityMin,
       translateYMin,
       onHideDidFinish,
+      ...rest
     } = props;
 
     Animated.parallel([
       Animated.timing(opacityValue, {
         toValue: opacityMin,
-        useNativeDriver: true,
-        duration,
-        delay,
+        ...rest
       }),
       Animated.timing(translateYValue, {
         toValue: translateYMin,
-        useNativeDriver: true,
-        duration,
-        delay,
+        ...rest
       }),
     ]).start(() => {
       if (onHideDidFinish) {

@@ -29,7 +29,7 @@ class Opacity extends PureComponent {
 
     Animated[type](this.state.opacityValue, {
       toValue: value,
-      ...rest,
+      ...rest
     }).start();
   };
   render() {
