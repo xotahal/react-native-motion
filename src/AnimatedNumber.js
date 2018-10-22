@@ -1,26 +1,42 @@
 import React from 'react';
-import { Animated } from 'react-native';
+import { Animated, InteractionManager } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
   type: PropTypes.string,
+  value: PropTypes.number,
+  startOnDidMount: PropTypes.bool,
+  useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
+  value: 0,
+  initialValue: null,
+  startOnDidMount: false,
+  useNativeDriver: true,
 };
 /**
  */
 class AnimatedNumber extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    const animatedValue = new Animated.Value(props.value);
+    const { initialValue } = props
+    const firstValue = initialValue !== null ? initialValue : props.value
+    const animatedValue = new Animated.Value(firstValue);
     animatedValue.addListener(this.onValueChanged);
 
     this.state = {
       animatedValue,
-      value: props.value,
+      value: firstValue,
     };
+  }
+  componentDidMount() {
+    const { startOnDidMount } = this.props;
+    if (startOnDidMount) {
+      InteractionManager.runAfterInteractions().then(() => {
+        this.move(this.props);
+      });
+    }
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.value !== nextProps.value) {
@@ -37,7 +53,7 @@ class AnimatedNumber extends React.PureComponent {
 
     Animated[type](this.state.animatedValue, {
       toValue: value,
-      ...rest
+      ...rest,
     }).start();
   };
   render() {
