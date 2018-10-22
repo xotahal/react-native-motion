@@ -7,6 +7,8 @@ const propTypes = {
   translateYMin: PropTypes.number,
   duration: PropTypes.number,
   startOnDidMount: PropTypes.bool,
+  delay: PropTypes.number,
+  useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   opacityMin: 0,
