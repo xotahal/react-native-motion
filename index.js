@@ -11,4 +11,5 @@ export { default as Scale } from './src/Scale';
 export { default as TranslateYAndOpacity } from './src/TranslateYAndOpacity';
 export { default as TranslateY } from './src/TranslateY';
 export { default as TranslateX } from './src/TranslateX';
+export { default as TranslateXY } from './src/TranslateXY';
 export { default as Opacity } from './src/Opacity';

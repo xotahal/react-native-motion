@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 const propTypes = {
   type: PropTypes.string,
   animateOnDidMount: PropTypes.bool,
+  useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
   animateOnDidMount: false,
+  useNativeDriver: true,
 };
 
 class Scale extends PureComponent {
