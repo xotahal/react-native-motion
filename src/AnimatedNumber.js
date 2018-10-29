@@ -3,7 +3,7 @@ import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
 };
 const defaultProps = {
   type: 'timing',
@@ -23,7 +23,9 @@ class AnimatedNumber extends React.PureComponent {
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    const { value } = this.props;
+
+    if (value !== nextProps.value) {
       this.move(nextProps);
     }
   }
@@ -34,8 +36,9 @@ class AnimatedNumber extends React.PureComponent {
   };
   move = props => {
     const { value, style, type, ...rest } = props;
+    const { animatedValue } = this.state;
 
-    Animated[type](this.state.animatedValue, {
+    Animated[type](animatedValue, {
       toValue: value,
       ...rest,
     }).start();

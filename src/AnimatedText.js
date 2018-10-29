@@ -3,7 +3,8 @@ import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  duration: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
 };
 const defaultProps = {
   type: 'timing',
@@ -28,7 +29,9 @@ class AnimatedText extends React.PureComponent {
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    const { value } = this.props;
+
+    if (value !== nextProps.value) {
       this.change(nextProps);
     }
   }
@@ -43,8 +46,9 @@ class AnimatedText extends React.PureComponent {
   };
   change = props => {
     const { value, style, type, ...rest } = props;
+    const { animatedValue } = this.state;
 
-    Animated[type](this.state.animatedValue, {
+    Animated[type](animatedValue, {
       toValue: 0,
       ...rest,
     }).start(() => {
@@ -53,7 +57,7 @@ class AnimatedText extends React.PureComponent {
         originLength: value.length,
       });
 
-      Animated[type](this.state.animatedValue, {
+      Animated[type](animatedValue, {
         toValue: 1,
         ...rest,
       }).start();

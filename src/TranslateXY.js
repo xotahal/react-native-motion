@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import { Animated, InteractionManager } from 'react-native';
+import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  type: PropTypes.string,
-  useNativeDriver: PropTypes.boolean,
+  type: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  useNativeDriver: PropTypes.boolean, // eslint-disable-line react/no-unused-prop-types
   x: PropTypes.number,
   y: PropTypes.number,
 };

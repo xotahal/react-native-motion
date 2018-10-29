@@ -1,12 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  Easing,
-  Animated,
-  Text,
-  View,
-  FlatList,
-  StyleSheet,
-} from 'react-native';
+import { Animated, View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 const childContextTypes = {
@@ -16,18 +9,17 @@ const childContextTypes = {
 // We need shared element to be rendered after the whole application because it
 // be on the screen with position absolute and will cover everything on screen
 class SharedElementRenderer extends PureComponent {
-  getChildContext() {
-    return {
-      moveSharedElement: this.moveSharedElement,
-    };
-  }
-
   constructor(props) {
     super(props);
 
     this.isRunning = {};
     this.state = {
       config: null,
+    };
+  }
+  getChildContext() {
+    return {
+      moveSharedElement: this.moveSharedElement,
     };
   }
   onMoveWillStart = () => {
@@ -73,7 +65,7 @@ class SharedElementRenderer extends PureComponent {
           toValue: destination.position.pageY,
           useNativeDriver: true,
           ...animationConfig,
-        })
+        }),
       );
     }
 
@@ -129,9 +121,11 @@ class SharedElementRenderer extends PureComponent {
     );
   }
   render() {
+    const { children } = this.props;
+
     return (
       <View style={styles.flexContainer}>
-        {this.props.children}
+        {children}
         {this.renderSharedElement()}
       </View>
     );

@@ -2,7 +2,7 @@
 export { default as SharedElement } from './src/SharedElement';
 export { default as SharedElementRenderer } from './src/SharedElementRenderer';
 // Attentions
-export { default as Shake } from './src/Shake'
+export { default as Shake } from './src/Shake';
 // Available Animations
 export { default as AnimatedNumber } from './src/AnimatedNumber';
 export { default as AnimatedText } from './src/AnimatedText';

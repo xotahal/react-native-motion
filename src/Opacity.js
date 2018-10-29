@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Animated, InteractionManager } from 'react-native';
+import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -20,23 +20,27 @@ class Opacity extends PureComponent {
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    const { value } = this.props;
+
+    if (value !== nextProps.value) {
       this.move(nextProps);
     }
   }
   move = props => {
     const { value, style, type, ...rest } = props;
+    const { opacityValue } = this.state;
 
-    Animated[type](this.state.opacityValue, {
+    Animated[type](opacityValue, {
       toValue: value,
       ...rest,
     }).start();
   };
   render() {
     const { style, children, ...rest } = this.props;
+    const { opacityValue } = this.state;
 
     const animatedStyle = {
-      opacity: this.state.opacityValue,
+      opacity: opacityValue,
     };
 
     return (

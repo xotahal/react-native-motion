@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Animated, InteractionManager } from 'react-native';
+import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -13,8 +13,6 @@ class Shake extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { value } = props;
-
     this.currentValue = 0;
 
     this.state = {
@@ -23,14 +21,17 @@ class Shake extends PureComponent {
   }
   // componentDidMount
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    const { value } = this.props;
+
+    if (value !== nextProps.value) {
       this.move(nextProps);
     }
   }
   move = props => {
     const { value, style, type, ...rest } = props;
+    const { animatedValue } = this.state;
 
-    Animated[type](this.state.animatedValue, {
+    Animated[type](animatedValue, {
       toValue: this.currentValue === 0 ? 1 : 0,
       ...rest,
     }).start(() => {

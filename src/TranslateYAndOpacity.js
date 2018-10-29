@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
   opacityMin: PropTypes.number,
   translateYMin: PropTypes.number,
-  duration: PropTypes.number,
+  duration: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
   startOnDidMount: PropTypes.bool,
 };
 const defaultProps = {
@@ -36,10 +36,12 @@ class TranslateYAndOpacity extends PureComponent {
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (!this.props.isHidden && nextProps.isHidden) {
+    const { isHidden } = this.props;
+
+    if (!isHidden && nextProps.isHidden) {
       this.hide(nextProps);
     }
-    if (this.props.isHidden && !nextProps.isHidden) {
+    if (isHidden && !nextProps.isHidden) {
       this.show(nextProps);
     }
   }
@@ -51,13 +53,13 @@ class TranslateYAndOpacity extends PureComponent {
       Animated.timing(opacityValue, {
         toValue: 1,
         useNativeDriver: true,
-        duration: 500,
+        duration,
         delay,
       }),
       Animated.timing(translateYValue, {
         toValue: 0,
         useNativeDriver: true,
-        duration: 500,
+        duration,
         delay,
       }),
     ]).start(() => {
@@ -96,6 +98,7 @@ class TranslateYAndOpacity extends PureComponent {
     });
   }
   render() {
+    const { children } = this.props;
     const { opacityValue, translateYValue } = this.state;
 
     const animatedStyle = {
@@ -103,9 +106,7 @@ class TranslateYAndOpacity extends PureComponent {
       transform: [{ translateY: translateYValue }],
     };
 
-    return (
-      <Animated.View style={animatedStyle}>{this.props.children}</Animated.View>
-    );
+    return <Animated.View style={animatedStyle}>{children}</Animated.View>;
   }
 }
 
