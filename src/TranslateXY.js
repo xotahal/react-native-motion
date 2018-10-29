@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   type: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  useNativeDriver: PropTypes.boolean, // eslint-disable-line react/no-unused-prop-types
+  useNativeDriver: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   x: PropTypes.number,
   y: PropTypes.number,
 };
