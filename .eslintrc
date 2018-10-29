@@ -48,16 +48,5 @@
       { "extensions": [".js", ".jsx"] }
     ],
     "react/require-default-props": "off"
-  },
-  "settings": {
-    "import/resolver": {
-      "babel-module": {
-        "root": ["./"],
-        "extensions": [".js", ".ios.js", ".android.js"],
-        "alias": {
-          "src": "./src"
-        }
-      }
-    }
   }
 }
