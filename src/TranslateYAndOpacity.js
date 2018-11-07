@@ -6,7 +6,7 @@ const propTypes = {
   opacityMin: PropTypes.number,
   translateYMin: PropTypes.number,
   duration: PropTypes.number,
-  startOnDidMount: PropTypes.bool,
+  animateOnDidMount: PropTypes.bool,
   delay: PropTypes.number,
   useNativeDriver: PropTypes.bool,
 };
@@ -14,9 +14,9 @@ const defaultProps = {
   opacityMin: 0,
   translateYMin: -4,
   duration: 500,
-  startOnDidMount: false,
+  animateOnDidMount: false,
   delay: 0,
-  useNativeDriver: true,
+  useNativeDriver: false,
 };
 
 class TranslateYAndOpacity extends PureComponent {
@@ -31,19 +31,21 @@ class TranslateYAndOpacity extends PureComponent {
     };
   }
   componentDidMount() {
-    const { startOnDidMount } = this.props;
+    const { animateOnDidMount } = this.props;
 
-    if (startOnDidMount) {
+    if (animateOnDidMount) {
       InteractionManager.runAfterInteractions().then(() => {
         this.show(this.props);
       });
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (!this.props.isHidden && nextProps.isHidden) {
+    const { isHidden } = this.props;
+
+    if (!isHidden && nextProps.isHidden) {
       this.hide(nextProps);
     }
-    if (this.props.isHidden && !nextProps.isHidden) {
+    if (isHidden && !nextProps.isHidden) {
       this.show(nextProps);
     }
   }
@@ -91,6 +93,7 @@ class TranslateYAndOpacity extends PureComponent {
     });
   }
   render() {
+    const { children } = this.props;
     const { opacityValue, translateYValue } = this.state;
 
     const animatedStyle = {
@@ -98,9 +101,7 @@ class TranslateYAndOpacity extends PureComponent {
       transform: [{ translateY: translateYValue }],
     };
 
-    return (
-      <Animated.View style={animatedStyle}>{this.props.children}</Animated.View>
-    );
+    return <Animated.View style={animatedStyle}>{children}</Animated.View>;
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Animated, InteractionManager } from 'react-native';
+import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -36,23 +36,27 @@ class TranslateX extends PureComponent {
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    const { value } = this.props;
+
+    if (value !== nextProps.value) {
       this.move(nextProps.value);
     }
   }
   move = toValue => {
     const { style, type, ...rest } = this.props;
+    const { translateXValue } = this.state;
 
-    Animated[type](this.state.translateXValue, {
+    Animated[type](translateXValue, {
       toValue,
       ...rest
     }).start();
   };
   render() {
     const { style, children } = this.props;
+    const { translateXValue } = this.state;
 
     const animatedStyle = {
-      transform: [{ translateX: this.state.translateXValue }],
+      transform: [{ translateX: translateXValue }],
     };
 
     return (

@@ -3,12 +3,14 @@ import { Animated, InteractionManager } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   animateOnDidMount: PropTypes.bool,
+  useNativeDriver: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 };
 const defaultProps = {
   type: 'timing',
   animateOnDidMount: false,
+  useNativeDriver: true,
 };
 
 class Scale extends PureComponent {
@@ -22,14 +24,18 @@ class Scale extends PureComponent {
     };
   }
   componentDidMount() {
-    if (this.props.animateOnDidMount) {
+    const { animateOnDidMount } = this.props;
+
+    if (animateOnDidMount) {
       InteractionManager.runAfterInteractions().then(() => {
         this.move(this.props);
       });
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    const { value } = this.props;
+
+    if (value !== nextProps.value) {
       this.move(nextProps);
     }
   }

@@ -1,17 +1,9 @@
 import React, { PureComponent } from 'react';
-import {
-  Easing,
-  Animated,
-  Text,
-  View,
-  FlatList,
-  StyleSheet,
-} from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
   // One of these are required
-  id: PropTypes.string,
+  id: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   sourceId: PropTypes.string,
   // Set to true if we want to start with animation immediately when a
   // destination element is mounted
@@ -28,18 +20,12 @@ const contextTypes = {
   moveSharedElement: PropTypes.func.isRequired,
 };
 
-// Hashtable of elements which are shared between source element and destination
-// element.
-let elements = {};
+const elements = {};
 // Test if the shred element is destination or source
-const isDestination = props => {
-  return !!props.sourceId;
-};
+const isDestination = props => !!props.sourceId;
 // Destination element has id as a sourceId and source element has an id as an
 // id prop
-const getKey = props => {
-  return props.id || props.sourceId;
-};
+const getKey = props => props.id || props.sourceId;
 // Create a element with provided id
 const initElement = props => {
   const { id, sourceId } = props;
@@ -189,17 +175,15 @@ class SharedElement extends PureComponent {
     const { startOnDestinationWillUnmount } = this.props;
 
     if (startOnDestinationWillUnmount && isDestination(this.props)) {
-      const { moveSharedElement } = this.context;
-      const { sourceId, children, onMoveComplete, ...rest } = this.props;
-      const element = getElement(this.props);
-
       this.moveToSource();
     }
   }
   setRef = node => {
     setRef(this.props, node);
+
+    const { children } = this.props;
     // Call the original ref, if there is any
-    const { ref } = this.props.children;
+    const { ref } = children;
     if (typeof ref === 'function') {
       ref(node);
     }
@@ -252,13 +236,13 @@ class SharedElement extends PureComponent {
       });
     }
   };
-  onMoveToDestinationWillStart = config => {
+  onMoveToDestinationWillStart = () => {
     const { source, destination } = getElement(this.props);
 
     fireEvent(source.props, 'onMoveToDestinationWillStart');
     fireEvent(destination.props, 'onMoveToDestinationWillStart');
   };
-  onMoveToDestinationDidFinish = config => {
+  onMoveToDestinationDidFinish = () => {
     const { source, destination } = getElement(this.props);
 
     // will get the node again later when we need it - we need always current
@@ -268,13 +252,13 @@ class SharedElement extends PureComponent {
     fireEvent(source.props, 'onMoveToDestinationDidFinish');
     fireEvent(destination.props, 'onMoveToDestinationDidFinish');
   };
-  onMoveToSourceWillStart = config => {
+  onMoveToSourceWillStart = () => {
     const { source, destination } = getElement(this.props);
 
     fireEvent(destination.props, 'onMoveToSourceWillStart');
     fireEvent(source.props, 'onMoveToSourceWillStart');
   };
-  onMoveToSourceDidFinish = config => {
+  onMoveToSourceDidFinish = () => {
     const { source, destination } = getElement(this.props);
 
     // will get the node again later when we need it - we need always current
@@ -299,7 +283,8 @@ class SharedElement extends PureComponent {
     });
 
     // Call original if any
-    const { onLayout } = this.props.children;
+    const { children } = this.props;
+    const { onLayout } = children;
     if (typeof onLayout === 'function') {
       onLayout(data);
     }
@@ -308,12 +293,12 @@ class SharedElement extends PureComponent {
     const { startOnDestinationDidMount } = this.props;
     const { source, destination } = getElement(this.props);
 
-    this.measure(source.ref, position => {
-      setSourcePosition(this.props, position);
+    this.measure(source.ref, sourcePosition => {
+      setSourcePosition(this.props, sourcePosition);
 
-      this.measure(destination.ref, position => {
+      this.measure(destination.ref, destinationPosition => {
         const startAnimation = get(this.props, 'waitingForDestination');
-        setDestinationPosition(this.props, position);
+        setDestinationPosition(this.props, destinationPosition);
 
         if (startAnimation || startOnDestinationDidMount) {
           this.moveToDestination();
@@ -322,7 +307,8 @@ class SharedElement extends PureComponent {
     });
 
     // Call original if any
-    const { onLayout } = this.props.children;
+    const { children } = this.props;
+    const { onLayout } = children;
     if (typeof onLayout === 'function') {
       onLayout(data);
     }
@@ -330,7 +316,7 @@ class SharedElement extends PureComponent {
   renderSource() {
     const { children } = this.props;
 
-    return React.cloneElement(this.props.children, {
+    return React.cloneElement(children, {
       ref: this.setRef,
       onLayout: this.onSourceLayout,
     });
@@ -353,16 +339,6 @@ class SharedElement extends PureComponent {
     return this.renderDestination();
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent',
-  },
-  positionContainer: {
-    position: 'absolute',
-  },
-});
 
 SharedElement.propTypes = propTypes;
 SharedElement.defaultProps = defaultProps;

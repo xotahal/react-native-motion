@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 const propTypes = {
   type: PropTypes.string,
   value: PropTypes.number,
-  startOnDidMount: PropTypes.bool,
+  animateOnDidMount: PropTypes.bool,
   useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
   value: 0,
   initialValue: null,
-  startOnDidMount: false,
-  useNativeDriver: true,
+  animateOnDidMount: false,
+  useNativeDriver: false,
 };
 /**
  */
@@ -31,15 +31,17 @@ class AnimatedNumber extends React.PureComponent {
     };
   }
   componentDidMount() {
-    const { startOnDidMount } = this.props;
-    if (startOnDidMount) {
+    const { animateOnDidMount } = this.props;
+    if (animateOnDidMount) {
       InteractionManager.runAfterInteractions().then(() => {
         this.move(this.props);
       });
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    const { value } = this.props;
+
+    if (value !== nextProps.value) {
       this.move(nextProps);
     }
   }
@@ -50,8 +52,9 @@ class AnimatedNumber extends React.PureComponent {
   };
   move = props => {
     const { value, style, type, ...rest } = props;
+    const { animatedValue } = this.state;
 
-    Animated[type](this.state.animatedValue, {
+    Animated[type](animatedValue, {
       toValue: value,
       ...rest,
     }).start();

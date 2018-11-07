@@ -29,21 +29,29 @@
     "url": "https://github.com/xotahal/react-native-motion/issues"
   },
   "homepage": "https://github.com/xotahal/react-native-motion",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
   "dependencies": {
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
-    "babel-core": "^6.25.0",
-    "babel-eslint": "8.2.2",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "10.0.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react-native": "4.0.0",
-    "eslint": "4.19.0",
-    "eslint-config-airbnb": "16.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "6.0.3",
-    "eslint-plugin-react": "^7.1.0",
-    "react": "16.2.0",
-    "react-native": "0.52.0"
+    "babel-preset-react-native": "4.0.1",
+    "eslint": "5.8.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "6.1.2",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-native": "^3.5.0",
+    "prettier": "^1.14.3",
+    "react": "16.4.1",
+    "react-native": "^0.57.4"
   }
 }

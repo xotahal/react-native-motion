@@ -20,7 +20,7 @@ const defaultProps = {
   animateOnDidMount: false,
   isHidden: true,
   delay: 0,
-  useNativeDriver: true,
+  useNativeDriver: false,
 };
 
 class ScaleAndOpacity extends PureComponent {
@@ -35,17 +35,21 @@ class ScaleAndOpacity extends PureComponent {
     };
   }
   componentDidMount() {
-    if (this.props.animateOnDidMount) {
+    const { animateOnDidMount } = this.props;
+
+    if (animateOnDidMount) {
       InteractionManager.runAfterInteractions().then(() => {
         this.show(this.props);
       });
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (!this.props.isHidden && nextProps.isHidden) {
+    const { isHidden } = this.props;
+
+    if (!isHidden && nextProps.isHidden) {
       this.hide(nextProps);
     }
-    if (this.props.isHidden && !nextProps.isHidden) {
+    if (isHidden && !nextProps.isHidden) {
       this.show(nextProps);
     }
   }

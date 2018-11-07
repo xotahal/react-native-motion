@@ -1,0 +1,52 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["import", "react", "prettier", "react-native"],
+  "rules": {
+    "react/prop-types": "off",
+    "coma-dangle": "always",
+    "curly": ["error", "all"],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ]
+      }
+    ],
+    "no-use-before-define": "off",
+    "prettier/prettier": "error",
+    "lines-between-class-members": ["error", "never"],
+    "react/jsx-wrap-multilines": [
+      "error",
+      { "declaration": false, "assignment": false }
+    ],
+    "react/jsx-one-expression-per-line": "off",
+    "react/default-props-match-prop-types": [
+      "error",
+      { "allowRequiredDefaults": true }
+    ],
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".js", ".jsx"] }
+    ],
+    "react/require-default-props": "off"
+  }
+}

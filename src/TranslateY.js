@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Animated, InteractionManager } from 'react-native';
+import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -36,23 +36,27 @@ class TranslateY extends PureComponent {
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
+    const { value } = this.props;
+
+    if (value !== nextProps.value) {
       this.move(nextProps.value);
     }
   }
   move = toValue => {
     const { style, type, ...rest } = this.props;
+    const { translateYValue } = this.state;
 
-    Animated[type](this.state.translateYValue, {
+    Animated[type](translateYValue, {
       toValue,
       ...rest
     }).start();
   };
   render() {
     const { style, children } = this.props;
+    const { translateYValue } = this.state;
 
     const animatedStyle = {
-      transform: [{ translateY: this.state.translateYValue }],
+      transform: [{ translateY: translateYValue }],
     };
 
     return (
