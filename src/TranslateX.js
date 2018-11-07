@@ -6,14 +6,14 @@ const propTypes = {
   type: PropTypes.string,
   value: PropTypes.number,
   initialValue: PropTypes.number,
-  startOnDidMount: PropTypes.bool,
+  animateOnDidMount: PropTypes.bool,
   useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
   value: 0,
   initialValue: 0,
-  startOnDidMount: false,
+  animateOnDidMount: false,
   useNativeDriver: true,
 };
 
@@ -28,8 +28,8 @@ class TranslateX extends PureComponent {
     };
   }
   componentDidMount() {
-    const { startOnDidMount } = this.props;
-    if (startOnDidMount) {
+    const { animateOnDidMount } = this.props;
+    if (animateOnDidMount) {
       InteractionManager.runAfterInteractions().then(() => {
         this.move(this.props.value);
       });
