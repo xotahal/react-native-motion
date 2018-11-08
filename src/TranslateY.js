@@ -4,20 +4,36 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   type: PropTypes.string,
+  value: PropTypes.number,
+  initialValue: PropTypes.number,
+  startOnDidMount: PropTypes.bool,
+  useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
+  value: 0,
+  initialValue: 0,
+  startOnDidMount: false,
+  useNativeDriver: true,
 };
 
 class TranslateY extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { value } = props;
+    const { value, initialValue } = props;
 
     this.state = {
-      translateYValue: new Animated.Value(value),
+      translateYValue: new Animated.Value(initialValue || value),
     };
+  }
+  componentDidMount() {
+    const { startOnDidMount } = this.props;
+    if (startOnDidMount) {
+      InteractionManager.runAfterInteractions().then(() => {
+        this.move(this.props.value);
+      });
+    }
   }
   componentWillReceiveProps(nextProps) {
     const { value } = this.props;
@@ -32,7 +48,7 @@ class TranslateY extends PureComponent {
 
     Animated[type](translateYValue, {
       toValue,
-      ...rest,
+      ...rest
     }).start();
   };
   render() {

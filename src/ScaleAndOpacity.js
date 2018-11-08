@@ -3,12 +3,14 @@ import { Animated, InteractionManager } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  type: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  type: PropTypes.string,
   opacityMin: PropTypes.number,
   scaleMin: PropTypes.number,
-  duration: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+  duration: PropTypes.number,
   animateOnDidMount: PropTypes.bool,
-  delay: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+  isHidden: PropTypes.bool,
+  delay: PropTypes.number,
+  useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
@@ -16,6 +18,9 @@ const defaultProps = {
   scaleMin: 0.8,
   duration: 500,
   animateOnDidMount: false,
+  isHidden: true,
+  delay: 0,
+  useNativeDriver: false,
 };
 
 class ScaleAndOpacity extends PureComponent {
@@ -55,11 +60,11 @@ class ScaleAndOpacity extends PureComponent {
     Animated.parallel([
       Animated[type](scaleValue, {
         toValue: scaleMin,
-        ...rest,
+        ...rest
       }),
       Animated[type](opacityValue, {
         toValue: opacityMin,
-        ...rest,
+        ...rest
       }),
     ]).start(() => {
       if (onHideComplete) {
@@ -74,11 +79,11 @@ class ScaleAndOpacity extends PureComponent {
     Animated.parallel([
       Animated[type](scaleValue, {
         toValue: 1,
-        ...rest,
+        ...rest
       }),
       Animated[type](opacityValue, {
         toValue: 1,
-        ...rest,
+        ...rest
       }),
     ]).start(() => {
       if (onShowComplete) {

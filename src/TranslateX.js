@@ -4,20 +4,36 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   type: PropTypes.string,
+  value: PropTypes.number,
+  initialValue: PropTypes.number,
+  animateOnDidMount: PropTypes.bool,
+  useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
+  value: 0,
+  initialValue: 0,
+  animateOnDidMount: false,
+  useNativeDriver: true,
 };
 
 class TranslateX extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { value } = props;
+    const { value, initialValue } = props;
 
     this.state = {
-      translateXValue: new Animated.Value(value),
+      translateXValue: new Animated.Value(initialValue || value),
     };
+  }
+  componentDidMount() {
+    const { animateOnDidMount } = this.props;
+    if (animateOnDidMount) {
+      InteractionManager.runAfterInteractions().then(() => {
+        this.move(this.props.value);
+      });
+    }
   }
   componentWillReceiveProps(nextProps) {
     const { value } = this.props;
@@ -32,7 +48,7 @@ class TranslateX extends PureComponent {
 
     Animated[type](translateXValue, {
       toValue,
-      ...rest,
+      ...rest
     }).start();
   };
   render() {

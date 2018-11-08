@@ -45,7 +45,7 @@ class Scale extends PureComponent {
 
     Animated[type](scaleValue, {
       toValue: value,
-      ...rest,
+      ...rest
     }).start(() => {
       if (onShowComplete) {
         onShowComplete(props);

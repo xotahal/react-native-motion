@@ -1,26 +1,42 @@
 import React from 'react';
-import { Animated } from 'react-native';
+import { Animated, InteractionManager } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  type: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  type: PropTypes.string,
+  value: PropTypes.number,
+  animateOnDidMount: PropTypes.bool,
+  useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
+  value: 0,
+  initialValue: null,
+  animateOnDidMount: false,
+  useNativeDriver: false,
 };
 /**
  */
 class AnimatedNumber extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    const animatedValue = new Animated.Value(props.value);
+    const { initialValue } = props
+    const firstValue = initialValue !== null ? initialValue : props.value
+    const animatedValue = new Animated.Value(firstValue);
     animatedValue.addListener(this.onValueChanged);
 
     this.state = {
       animatedValue,
-      value: props.value,
+      value: firstValue,
     };
+  }
+  componentDidMount() {
+    const { animateOnDidMount } = this.props;
+    if (animateOnDidMount) {
+      InteractionManager.runAfterInteractions().then(() => {
+        this.move(this.props);
+      });
+    }
   }
   componentWillReceiveProps(nextProps) {
     const { value } = this.props;
