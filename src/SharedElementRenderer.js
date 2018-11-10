@@ -56,7 +56,7 @@ class SharedElementRenderer extends PureComponent {
 
     const animations = [];
 
-    if (source.position.pageY !== destination.position.pageY) {
+    if (source.position.pageY && destination.position.pageY) {
       const translateYValue = new Animated.Value(source.position.pageY);
       this.setState({ translateYValue });
 
