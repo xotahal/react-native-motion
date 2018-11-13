@@ -23,7 +23,9 @@ class Shake extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const { value } = this.props;
 
-    if (value !== nextProps.value) {
+    // Perform the shake if our `value` prop has been changed and is
+    // being changed to a truthy value.
+    if (value !== nextProps.value && !!nextProps.value) {
       this.move(nextProps);
     }
   }
