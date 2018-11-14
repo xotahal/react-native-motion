@@ -55,11 +55,14 @@ class SharedElementRenderer extends PureComponent {
     const { source, destination } = element;
 
     const animations = [];
+    let translateYValue = 0;
 
-    if (source.position.pageY && destination.position.pageY) {
-      const translateYValue = new Animated.Value(source.position.pageY);
+    if (!isNaN(source.position.pageY)) {
+      translateYValue = new Animated.Value(source.position.pageY);
       this.setState({ translateYValue });
+    }
 
+    if (source.position.pageY !== destination.position.pageY) {
       animations.push(
         Animated.timing(translateYValue, {
           toValue: destination.position.pageY,
