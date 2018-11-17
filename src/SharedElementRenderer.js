@@ -59,10 +59,11 @@ class SharedElementRenderer extends PureComponent {
 
     if (!isNaN(source.position.pageY)) {
       translateYValue = new Animated.Value(source.position.pageY);
-      this.setState({ translateYValue });
     }
 
     if (source.position.pageY !== destination.position.pageY) {
+      this.setState({ translateYValue });
+
       animations.push(
         Animated.timing(translateYValue, {
           toValue: destination.position.pageY,
