@@ -48,7 +48,7 @@ class TranslateX extends PureComponent {
 
     Animated[type](translateXValue, {
       toValue,
-      ...rest
+      ...rest,
     }).start();
   };
   render() {

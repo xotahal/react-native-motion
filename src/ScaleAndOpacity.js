@@ -60,11 +60,11 @@ class ScaleAndOpacity extends PureComponent {
     Animated.parallel([
       Animated[type](scaleValue, {
         toValue: scaleMin,
-        ...rest
+        ...rest,
       }),
       Animated[type](opacityValue, {
         toValue: opacityMin,
-        ...rest
+        ...rest,
       }),
     ]).start(() => {
       if (onHideComplete) {
@@ -79,11 +79,11 @@ class ScaleAndOpacity extends PureComponent {
     Animated.parallel([
       Animated[type](scaleValue, {
         toValue: 1,
-        ...rest
+        ...rest,
       }),
       Animated[type](opacityValue, {
         toValue: 1,
-        ...rest
+        ...rest,
       }),
     ]).start(() => {
       if (onShowComplete) {

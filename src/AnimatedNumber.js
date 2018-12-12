@@ -20,8 +20,8 @@ const defaultProps = {
 class AnimatedNumber extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { initialValue } = props
-    const firstValue = initialValue !== null ? initialValue : props.value
+    const { initialValue } = props;
+    const firstValue = initialValue !== null ? initialValue : props.value;
     const animatedValue = new Animated.Value(firstValue);
     animatedValue.addListener(this.onValueChanged);
 

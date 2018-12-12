@@ -35,7 +35,7 @@ class Shake extends PureComponent {
 
     Animated[type](animatedValue, {
       toValue: this.currentValue === 0 ? 1 : 0,
-      ...rest
+      ...rest,
     }).start(() => {
       this.currentValue = this.currentValue === 0 ? 1 : 0;
     });

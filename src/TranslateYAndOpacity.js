@@ -56,11 +56,11 @@ class TranslateYAndOpacity extends PureComponent {
     Animated.parallel([
       Animated.timing(opacityValue, {
         toValue: 1,
-        ...rest
+        ...rest,
       }),
       Animated.timing(translateYValue, {
         toValue: 0,
-        ...rest
+        ...rest,
       }),
     ]).start(() => {
       if (onShowDidFinish) {
@@ -70,21 +70,16 @@ class TranslateYAndOpacity extends PureComponent {
   }
   hide(props) {
     const { translateYValue, opacityValue } = this.state;
-    const {
-      opacityMin,
-      translateYMin,
-      onHideDidFinish,
-      ...rest
-    } = props;
+    const { opacityMin, translateYMin, onHideDidFinish, ...rest } = props;
 
     Animated.parallel([
       Animated.timing(opacityValue, {
         toValue: opacityMin,
-        ...rest
+        ...rest,
       }),
       Animated.timing(translateYValue, {
         toValue: translateYMin,
-        ...rest
+        ...rest,
       }),
     ]).start(() => {
       if (onHideDidFinish) {

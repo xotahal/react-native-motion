@@ -50,7 +50,7 @@ class AnimatedText extends React.PureComponent {
 
     Animated[type](animatedValue, {
       toValue: 0,
-      ...rest
+      ...rest,
     }).start(() => {
       this.setState({
         originValue: value,
@@ -59,7 +59,7 @@ class AnimatedText extends React.PureComponent {
 
       Animated[type](animatedValue, {
         toValue: 1,
-        ...rest
+        ...rest,
       }).start();
     });
   };
