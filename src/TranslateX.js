@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Animated } from 'react-native';
+import { Animated, InteractionManager } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -28,10 +28,10 @@ class TranslateX extends PureComponent {
     };
   }
   componentDidMount() {
-    const { animateOnDidMount } = this.props;
+    const { animateOnDidMount, value } = this.props;
     if (animateOnDidMount) {
       InteractionManager.runAfterInteractions().then(() => {
-        this.move(this.props.value);
+        this.move(value);
       });
     }
   }

@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 const propTypes = {
   opacityMin: PropTypes.number,
   translateYMin: PropTypes.number,
-  duration: PropTypes.number,
+  duration: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
   animateOnDidMount: PropTypes.bool,
-  delay: PropTypes.number,
-  useNativeDriver: PropTypes.bool,
+  delay: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+  useNativeDriver: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 };
 const defaultProps = {
   opacityMin: 0,

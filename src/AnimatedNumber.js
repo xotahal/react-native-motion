@@ -3,10 +3,11 @@ import { Animated, InteractionManager } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   value: PropTypes.number,
+  initialValue: PropTypes.number,
   animateOnDidMount: PropTypes.bool,
-  useNativeDriver: PropTypes.bool,
+  useNativeDriver: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 };
 const defaultProps = {
   type: 'timing',
