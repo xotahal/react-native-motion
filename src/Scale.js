@@ -36,7 +36,13 @@ class Scale extends PureComponent {
     const { value } = this.props;
 
     if (value !== nextProps.value) {
-      this.move(nextProps);
+      if (nextProps.runAfterInteractions) {
+        InteractionManager.runAfterInteractions().then(() => {
+          this.move(nextProps);
+        });
+      } else {
+        this.move(nextProps);
+      }
     }
   }
   move = props => {
