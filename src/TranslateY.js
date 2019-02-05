@@ -43,7 +43,7 @@ class TranslateY extends PureComponent {
     }
   }
   move = toValue => {
-    const { style, type, ...rest } = this.props;
+    const { style, type, pointerEvents, ...rest } = this.props;
     const { translateYValue } = this.state;
 
     Animated[type](translateYValue, {
@@ -52,7 +52,7 @@ class TranslateY extends PureComponent {
     }).start();
   };
   render() {
-    const { style, children } = this.props;
+    const { style, children, pointerEvents } = this.props;
     const { translateYValue } = this.state;
 
     const animatedStyle = {
@@ -60,7 +60,12 @@ class TranslateY extends PureComponent {
     };
 
     return (
-      <Animated.View style={[style, animatedStyle]}>{children}</Animated.View>
+      <Animated.View
+        style={[style, animatedStyle]}
+        pointerEvents={pointerEvents}
+      >
+        {children}
+      </Animated.View>
     );
   }
 }
