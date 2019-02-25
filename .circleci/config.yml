@@ -62,11 +62,8 @@ jobs:
       - attach_workspace:
           at: *workspace
       - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/mui/.npmrc
-      - run:
           name: Publish
-          command: npm publish
+          command: yarn semantic-release
 
 
 workflows:
@@ -82,4 +79,4 @@ workflows:
               - lint
           filters:
               branches:
-                only: 'publish'
+                only: 'master'
