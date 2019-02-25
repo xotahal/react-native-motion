@@ -52,6 +52,7 @@
     "eslint-plugin-react-native": "^3.5.0",
     "prettier": "^1.14.3",
     "react": "16.4.1",
-    "react-native": "^0.57.4"
+    "react-native": "^0.57.4",
+    "semantic-release": "^15.13.3"
   }
 }
