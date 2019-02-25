@@ -1,3 +1,3 @@
 module.exports = {
-  branch: 'develop',
+  branch: 'feat/semantic-release',
 };
