@@ -12,7 +12,7 @@ const propTypes = {
 const defaultProps = {
   type: 'timing',
   value: 0,
-  initialValue: 0,
+  initialValue: null,
   startOnDidMount: false,
   useNativeDriver: true,
 };
@@ -24,7 +24,9 @@ class TranslateY extends PureComponent {
     const { value, initialValue } = props;
 
     this.state = {
-      translateYValue: new Animated.Value(initialValue || value),
+      translateYValue: new Animated.Value(
+        initialValue !== null ? initialValue : value,
+      ),
     };
   }
   componentDidMount() {
