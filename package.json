@@ -4,6 +4,9 @@
   "description": "React Native Motion",
   "main": "./index.js",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "rimraf coverage && jest --coverage",
     "lint": "eslint ./"
   },
   "repository": {
@@ -13,7 +16,11 @@
   "jest": {
     "preset": "react-native",
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "testMatch": [
+      "<rootDir>/__tests__/**/*.test.js?(x)",
+      "<rootDir>/src/**/*.test.js"
+    ]
   },
   "keywords": [
     "react-native",
