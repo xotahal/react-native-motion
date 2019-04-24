@@ -6,14 +6,14 @@ const propTypes = {
   type: PropTypes.string,
   value: PropTypes.number,
   initialValue: PropTypes.number,
-  startOnDidMount: PropTypes.bool,
+  animateOnDidMount: PropTypes.bool,
   useNativeDriver: PropTypes.bool,
 };
 const defaultProps = {
   type: 'timing',
   value: 0,
   initialValue: null,
-  startOnDidMount: false,
+  animateOnDidMount: false,
   useNativeDriver: true,
 };
 
@@ -30,8 +30,8 @@ class TranslateY extends PureComponent {
     };
   }
   componentDidMount() {
-    const { startOnDidMount, value } = this.props;
-    if (startOnDidMount) {
+    const { animateOnDidMount, value } = this.props;
+    if (animateOnDidMount) {
       InteractionManager.runAfterInteractions().then(() => {
         this.move(value);
       });
