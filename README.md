@@ -56,6 +56,7 @@ class DetailPage extends Component {
 - [expo app](https://expo.io/@xotahal/react-native-motion-example)
 
 ## Author
+- [Let me help you](http://link.xotahal.cz/research) with animations in React Native 🤙 
 - [Facebook Group](https://www.facebook.com/groups/react.native.motion/) about animation in React Native
 - [Publication](https://medium.com/react-native-motion) about animation in React Native 🚗
 - Personal [Medium Account](https://medium.com/@xotahal) about programming 😍
