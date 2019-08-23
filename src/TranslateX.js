@@ -43,13 +43,13 @@ class TranslateX extends PureComponent {
     }
   }
   move = toValue => {
-    const { style, type, ...rest } = this.props;
+    const { style, onMoveDidFinish, type, ...rest } = this.props;
     const { translateXValue } = this.state;
 
     Animated[type](translateXValue, {
       toValue,
       ...rest,
-    }).start();
+    }).start(onMoveDidFinish);
   };
   render() {
     const { style, children } = this.props;
