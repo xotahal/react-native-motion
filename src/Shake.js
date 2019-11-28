@@ -19,14 +19,13 @@ class Shake extends PureComponent {
       animatedValue: new Animated.Value(this.currentValue),
     };
   }
-  // componentDidMount
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const { value } = this.props;
 
     // Perform the shake if our `value` prop has been changed and is
     // being changed to a truthy value.
-    if (value !== nextProps.value && !!nextProps.value) {
-      this.move(nextProps);
+    if (prevProps.value !== value && !!value) {
+      this.move(this.props);
     }
   }
   move = props => {

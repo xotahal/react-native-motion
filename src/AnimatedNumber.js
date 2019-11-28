@@ -39,11 +39,11 @@ class AnimatedNumber extends React.PureComponent {
       });
     }
   }
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const { value } = this.props;
 
-    if (value !== nextProps.value) {
-      this.move(nextProps);
+    if (prevProps.value !== value) {
+      this.move(this.props);
     }
   }
   onValueChanged = e => {

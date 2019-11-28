@@ -168,8 +168,8 @@ class SharedElement extends PureComponent {
   componentDidMount() {
     setProps(this.props);
   }
-  componentWillReceiveProps(nextProps) {
-    setProps(nextProps);
+  componentDidUpdate() {
+    setProps(this.props);
   }
   componentWillUnmount() {
     const { startOnDestinationWillUnmount } = this.props;

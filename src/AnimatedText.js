@@ -28,11 +28,11 @@ class AnimatedText extends React.PureComponent {
       originLength: value.length,
     };
   }
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const { value } = this.props;
 
-    if (value !== nextProps.value) {
-      this.change(nextProps);
+    if (prevProps.value !== value) {
+      this.change(this.props);
     }
   }
   onValueChanged = e => {
