@@ -19,11 +19,11 @@ class Opacity extends PureComponent {
       opacityValue: new Animated.Value(value),
     };
   }
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const { value } = this.props;
 
-    if (value !== nextProps.value) {
-      this.move(nextProps);
+    if (prevProps.value !== value) {
+      this.move(this.props);
     }
   }
   move = props => {

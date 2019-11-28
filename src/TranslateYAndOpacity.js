@@ -39,14 +39,14 @@ class TranslateYAndOpacity extends PureComponent {
       });
     }
   }
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const { isHidden } = this.props;
 
-    if (!isHidden && nextProps.isHidden) {
-      this.hide(nextProps);
+    if (!prevProps.isHidden && isHidden) {
+      this.hide(this.props);
     }
-    if (isHidden && !nextProps.isHidden) {
-      this.show(nextProps);
+    if (prevProps.isHidden && !isHidden) {
+      this.show(this.props);
     }
   }
   show(props) {
