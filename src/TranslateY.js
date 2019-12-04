@@ -41,7 +41,7 @@ class TranslateY extends PureComponent {
     const { value } = this.props;
 
     if (prevProps.value !== value) {
-      this.move(this.props);
+      this.move(value);
     }
   }
   move = toValue => {
