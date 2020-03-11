@@ -97,11 +97,7 @@ class TranslateYAndOpacity extends PureComponent {
     };
 
     return (
-      <Animated.View
-        style={[style, animatedStyle]}
-      >
-        {children}
-      </Animated.View>
+      <Animated.View style={[style, animatedStyle]}>{children}</Animated.View>
     );
   }
 }
