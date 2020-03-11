@@ -6,17 +6,17 @@ const propTypes = {
   opacityMin: PropTypes.number,
   translateYMin: PropTypes.number,
   duration: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  animateOnDidMount: PropTypes.bool,
   delay: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+  animateOnDidMount: PropTypes.bool,
   useNativeDriver: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
 };
 const defaultProps = {
   opacityMin: 0,
   translateYMin: -4,
   duration: 500,
-  animateOnDidMount: false,
   delay: 0,
-  useNativeDriver: false,
+  animateOnDidMount: false,
+  useNativeDriver: true,
 };
 
 class TranslateYAndOpacity extends PureComponent {
@@ -88,7 +88,7 @@ class TranslateYAndOpacity extends PureComponent {
     });
   }
   render() {
-    const { children } = this.props;
+    const { style, children } = this.props;
     const { opacityValue, translateYValue } = this.state;
 
     const animatedStyle = {
@@ -96,7 +96,9 @@ class TranslateYAndOpacity extends PureComponent {
       transform: [{ translateY: translateYValue }],
     };
 
-    return <Animated.View style={animatedStyle}>{children}</Animated.View>;
+    return (
+      <Animated.View style={[style, animatedStyle]}>{children}</Animated.View>
+    );
   }
 }
 

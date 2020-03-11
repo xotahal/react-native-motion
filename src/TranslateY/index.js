@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 const propTypes = {
   type: PropTypes.string,
   value: PropTypes.number,
+  duration: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+  delay: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
   initialValue: PropTypes.number,
   startOnDidMount: PropTypes.bool,
   useNativeDriver: PropTypes.bool,
@@ -12,6 +14,8 @@ const propTypes = {
 const defaultProps = {
   type: 'timing',
   value: 0,
+  duration: 500,
+  delay: 0,
   initialValue: null,
   startOnDidMount: false,
   useNativeDriver: true,
