@@ -190,7 +190,7 @@ class SharedElement extends PureComponent {
   };
   measure = (ref, callback) => {
     if (!ref) {
-      callback(null);
+      return callback(null);
     }
 
     ref.measure((x, y, width, height, pageX, pageY) => {
