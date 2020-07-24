@@ -12,7 +12,7 @@ workspace: &workspace
 node_config: &node_config
     working_directory: *workspace
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:lts
 
 # Key to cache gradle dependecies
 yarn_key: &yarn_key
